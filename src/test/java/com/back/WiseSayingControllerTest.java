@@ -5,70 +5,38 @@ import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class AppTest {
 
-//    @Test
-//    @DisplayName("`종료")
-//    void t1() {
-//        String rs = AppTestRunner.run("종료");
-//
-//        assertThat(rs)
-//                .contains("== 명언 앱 ==")
-//                .contains("명령) ");
-//
-//        assertThat(rs)
-//                .contains("종료되었습다.");
-//
-//    }
-
+public class WiseSayingControllerTest {
     @Test
-    @DisplayName("`== 명언 앱 ==` 출력")
+    @DisplayName("등록")
     void t1() {
-        String rs = AppTestRunner.run("종료");
+        String rs = AppTestRunner.run("""
+                등록
+                현재를 사랑하라.
+                작자미상
+                """);
 
         assertThat(rs)
-                .contains("== 명언 앱 ==")
-                .contains("명령) ");
-
+                .contains("명언 : ")
+                .contains("작가 : ");
     }
 
     @Test
-    @DisplayName("등록")
+    @DisplayName("등록시 생성된 명언번호 노출")
     void t2() {
         String rs = AppTestRunner.run("""
                 등록
                 현재를 사랑하라.
                 작자미상
-                종료
                 """);
-
-        assertThat(rs)
-                .contains("명언 : ")
-                .contains("작가 : ");
-    }
-
-    @Test
-    @DisplayName("등록할 때 명언 번호 추가")
-    void t3() {
-        String rs = AppTestRunner.run("""
-                등록
-                현재를 사랑하라.
-                작자미상
-                종료
-                """);
-
-        assertThat(rs)
-                .contains("명령) ")
-                .contains("명언 : ")
-                .contains("작가 : ");
 
         assertThat(rs)
                 .contains("1번 명언이 등록되었습니다.");
     }
 
     @Test
-    @DisplayName("등록할 때 마다 생성되는 명언 번호가 증가")
-    void t4() {
+    @DisplayName("등록할때 마다 생성되는 명언번호가 증가")
+    void t3() {
         String rs = AppTestRunner.run("""
                 등록
                 현재를 사랑하라.
@@ -85,7 +53,7 @@ public class AppTest {
 
     @Test
     @DisplayName("목록")
-    void t5() {
+    void t4() {
         String rs = AppTestRunner.run("""
                 등록
                 현재를 사랑하라.
@@ -103,3 +71,4 @@ public class AppTest {
                 .contains("1 / 작자미상 / 현재를 사랑하라.");
     }
 }
+
