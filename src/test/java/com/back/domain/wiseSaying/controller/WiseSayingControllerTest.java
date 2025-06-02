@@ -108,5 +108,25 @@ public class WiseSayingControllerTest {
                 .contains("1번 명언이 삭제되었습니다.")
                 .contains("1번 명언은 존재하지 않습니다.");
     }
+
+    @Test
+    @DisplayName("수정?id=1")
+    void t7() {
+        String rs = AppTestRunner.run("""
+                등록
+                현재를 사랑하라.
+                작자미상
+                수정?id=3
+                수정?id=1
+                현재를 사랑하세요.
+                아리스토텔레스
+                목록
+                """);
+
+        assertThat(rs)
+                .contains("3번 명언은 존재하지 않습니다.")
+                .contains("1 / 아리스토텔레스 / 현재를 사랑하세요.")
+                .doesNotContain("1 / 작자미상 / 현재를 사랑하라.");
+    }
 }
 
