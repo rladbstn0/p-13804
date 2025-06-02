@@ -1,25 +1,21 @@
 package com.back.domain.wiseSaying.controller;
 
+import com.back.AppContext;
 import com.back.domain.wiseSaying.entity.WiseSaying;
 import com.back.domain.wiseSaying.service.WiseSayingService;
 
 import java.util.Scanner;
 
 public class WiseSayingController {
-    private final Scanner scanner;
-    private final WiseSayingService wiseSayingService;
-
-    public WiseSayingController(Scanner scanner) {
-        this.scanner = scanner;
-        this.wiseSayingService = new WiseSayingService();
-    }
+    private final WiseSayingService wiseSayingService = AppContext.wiseSayingService;
+    private final Scanner scanner = AppContext.scanner;
 
     public void actionWrite() {
         System.out.print("명언 : ");
-        String content = scanner.nextLine();
+        String content = AppContext.scanner.nextLine();
 
         System.out.print("작가 : ");
-        String author = scanner.nextLine();
+        String author = AppContext.scanner.nextLine();
 
         WiseSaying wiseSaying = wiseSayingService.write(content, author);
 
