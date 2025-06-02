@@ -6,8 +6,10 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        //lab1();
-        lab2();
+//        lab1();
+//        lab2();
+        new App(new Scanner(System.in))
+                .run();
     }
 
     public static void lab1() {
@@ -29,7 +31,7 @@ public class Main {
         System.out.println("안녕하세요.");
 
         // 기존의 output 스트림 저장
-        PrintStream ORIGNAL_OUT = System.out;
+        PrintStream ORIGINAL_OUT = System.out;
 
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         PrintStream printStream = new PrintStream(byteArrayOutputStream, true);
@@ -39,7 +41,7 @@ public class Main {
         String str = byteArrayOutputStream.toString();
 
         // output 스트림 복원
-        System.setOut(ORIGNAL_OUT);
+        System.setOut(ORIGINAL_OUT);
         System.out.println("str : " + str);
 
     }
