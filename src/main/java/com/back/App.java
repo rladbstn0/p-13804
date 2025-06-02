@@ -25,6 +25,8 @@ public class App {
 
                     System.out.print("작가 : ");
                     String author = scanner.nextLine();
+
+                    System.out.print("1번 명언이 등록되었습니다.");
                 }
                 case "종료" -> {
                     return;
