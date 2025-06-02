@@ -11,5 +11,25 @@ public class App {
 
     public void run() {
         System.out.println("== 명언 앱 ==");
+
+
+
+        while (true) {
+            System.out.print("명령) ");
+            String cmd = scanner.nextLine();
+
+            switch (cmd) {
+                case "등록" -> {
+                    System.out.print("명언 : ");
+                    String content = scanner.nextLine();
+
+                    System.out.print("작가 : ");
+                    String author = scanner.nextLine();
+                }
+                case "종료" -> {
+                    return;
+                }
+            }
+        }
     }
 }

@@ -1,16 +1,18 @@
-package com.back.standard.util;
+package com.back;
 
-import com.back.App;
+import com.back.standard.util.TestUtil;
 
 import java.io.ByteArrayOutputStream;
 import java.util.Scanner;
 
 public class AppTestRunner {
     public static String run(String input) {
-        Scanner sc = TestUtil.genScanner(input);
+        Scanner scanner = TestUtil.genScanner(input);
+
         ByteArrayOutputStream output = TestUtil.setOutToByteArray();
-        new App(sc).run();
+        new App(scanner).run();
 
         return output.toString();
     }
+
 }
