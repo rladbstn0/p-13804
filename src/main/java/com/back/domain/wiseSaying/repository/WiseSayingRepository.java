@@ -11,9 +11,10 @@ public class WiseSayingRepository {
     private int lastId = 0;
 
     public WiseSaying save(WiseSaying wiseSaying) {
-        wiseSaying.setId(++lastId);
-
-        wiseSayings.add(wiseSaying);
+        if(wiseSaying.isNew()){
+            wiseSaying.setId(++lastId);
+            wiseSayings.add(wiseSaying);
+        }
 
         return wiseSaying;
     }

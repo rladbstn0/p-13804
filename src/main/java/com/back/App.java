@@ -27,6 +27,7 @@ public class App {
                 case "등록" -> wiseSayingController.actionWrite();
                 case "목록" -> wiseSayingController.actionList();
                 case "삭제" -> wiseSayingController.actionDelete(cmd);
+                case "수정" -> wiseSayingController.actionModify(cmd);
                 case "종료" -> {
                     systemController.actionExit();
                     return;
