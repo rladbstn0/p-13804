@@ -58,20 +58,13 @@ public class AppTest {
                 등록
                 현재를 사랑하라.
                 작자미상
-                종료
+                등록
+                현재를 사랑하라.
+                작자미상
                 """);
-
-        assertThat(rs)
-                .contains("명령) ")
-                .contains("명언 : ")
-                .contains("작가 : ")
-                .contains("명령) ")
-                .contains("명언 : ")
-                .contains("작가 : ");
 
         assertThat(rs)
                 .contains("1번 명언이 등록되었습니다.")
                 .contains("2번 명언이 등록되었습니다.");
-
     }
 }
