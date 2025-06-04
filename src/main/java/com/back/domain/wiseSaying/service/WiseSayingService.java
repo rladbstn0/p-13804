@@ -20,13 +20,13 @@ public class WiseSayingService {
         return wiseSaying;
     }
 
-    public List<WiseSaying> findForList(String keywordType, String keyword) {
-        if (keyword.isBlank()) return wiseSayingRepository.findForList();
+    public List<WiseSaying> findForList(String keywordType, String keyword, int pageSize, int pageNo) {
+        if (keyword.isBlank()) return wiseSayingRepository.findForList(pageSize, pageNo);
 
         return switch (keywordType) {
-            case "content" -> wiseSayingRepository.findForListByContentContaining(keyword);
-            case "author" -> wiseSayingRepository.findForListByAuthorContaining(keyword);
-            default -> wiseSayingRepository.findForListByContentContainingOrAuthorContaining(keyword, keyword);
+            case "content" -> wiseSayingRepository.findForListByContentContaining(keyword, pageSize, pageNo);
+            case "author" -> wiseSayingRepository.findForListByAuthorContaining(keyword, pageSize, pageNo);
+            default -> wiseSayingRepository.findForListByContentContainingOrAuthorContaining(keyword, keyword, pageSize, pageNo);
         };
     }
 

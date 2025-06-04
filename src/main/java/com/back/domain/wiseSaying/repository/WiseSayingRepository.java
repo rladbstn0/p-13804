@@ -20,8 +20,12 @@ public class WiseSayingRepository {
         return wiseSaying;
     }
 
-    public List<WiseSaying> findForList() {
-        return wiseSayings.reversed();
+    public List<WiseSaying> findForList(int pageSize, int pageNo) {
+        return wiseSayings
+                .reversed()
+                .stream()
+                .limit(pageSize)
+                .collect(Collectors.toList());
     }
 
     public int findIndexById(int id) {
@@ -44,29 +48,33 @@ public class WiseSayingRepository {
         wiseSayings.remove(wiseSaying);
     }
 
-    public List<WiseSaying> findForListByContentContaining(String keyword) {
+    public List<WiseSaying> findForListByContentContaining(String keyword, int pageSize, int pageNo) {
         return wiseSayings
+                .reversed()
                 .stream()
                 .filter(w -> w.getContent().contains(keyword))
+                .limit(pageSize)
                 .collect(Collectors.toList())
-                .reversed();
+                ;
     }
 
-    public List<WiseSaying> findForListByAuthorContaining(String keyword) {
+    public List<WiseSaying> findForListByAuthorContaining(String keyword, int pageSize, int pageNo) {
         return wiseSayings
+                .reversed()
                 .stream()
                 .filter(w -> w.getAuthor().contains(keyword))
-                .collect(Collectors.toList())
-                .reversed();
+                .limit(pageSize)
+                .collect(Collectors.toList());
     }
 
-    public List<WiseSaying> findForListByContentContainingOrAuthorContaining(String keyword1, String keyword2) {
+    public List<WiseSaying> findForListByContentContainingOrAuthorContaining(String keyword1, String keyword2, int pageSize, int pageNo) {
         return wiseSayings
+                .reversed()
                 .stream()
                 .filter(
                         w -> w.getContent().contains(keyword1) || w.getAuthor().contains(keyword2)
                 )
-                .collect(Collectors.toList())
-                .reversed();
+                .limit(pageSize)
+                .collect(Collectors.toList());
     }
 }
