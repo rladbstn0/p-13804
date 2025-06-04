@@ -81,5 +81,17 @@ public class Util {
                 return defaultValue;
             }
         }
+
+        public static void mkdir(String dirPath) {
+            try {
+                Files.createDirectories(getPath(dirPath));
+            } catch (IOException e) {
+                throw new RuntimeException("디렉토리 생성 실패: " + dirPath, e);
+            }
+        }
+
+        public static boolean rmdir(String dirPath) {
+            return delete(dirPath);
+        }
     }
 }
