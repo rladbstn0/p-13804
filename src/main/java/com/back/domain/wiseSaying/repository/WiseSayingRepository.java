@@ -51,4 +51,12 @@ public class WiseSayingRepository {
                 .collect(Collectors.toList())
                 .reversed();
     }
+
+    public List<WiseSaying> findForListByAuthorContaining(String keyword) {
+        return wiseSayings
+                .stream()
+                .filter(w -> w.getAuthor().contains(keyword))
+                .collect(Collectors.toList())
+                .reversed();
+    }
 }
