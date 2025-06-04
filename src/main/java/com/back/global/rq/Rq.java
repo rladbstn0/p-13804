@@ -21,7 +21,7 @@ public class Rq {
     }
 
     public int getParamsInt(String name, int defaultValue) {
-        String value = getParams(name, "");
+        String value = getParam(name, "");
 
         if(value == null) return defaultValue;
 
@@ -32,7 +32,7 @@ public class Rq {
         }
     }
 
-    private String getParams(String name, String defaultValue) {
+    public String getParam(String name, String defaultValue) {
         return params.getOrDefault(name, defaultValue);
     }
 
