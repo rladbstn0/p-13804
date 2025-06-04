@@ -22,8 +22,6 @@ public class App {
             System.out.print("명령) ");
             String cmd = AppContext.scanner.nextLine();
 
-            String actionName = cmd.split("\\?", 2)[0];
-
             Rq rq = new Rq(cmd);
 
             switch (rq.getActionName()) {
