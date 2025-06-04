@@ -8,6 +8,8 @@ import com.back.standard.dto.Page;
 import com.back.standard.dto.Pageable;
 
 import java.util.Scanner;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 public class WiseSayingController {
     private final WiseSayingService wiseSayingService = AppContext.wiseSayingService;
@@ -41,6 +43,15 @@ public class WiseSayingController {
         for (WiseSaying wiseSaying : wiseSayingPage.getContent()) {
             System.out.printf("%d / %s / %s\n", wiseSaying.getId(), wiseSaying.getAuthor(), wiseSaying.getContent());
         }
+
+        System.out.printf("페이지 : ");
+
+        String pageMenu = IntStream.rangeClosed(1, wiseSayingPage.getTotalPages())
+                .mapToObj(i -> i == wiseSayingPage.getPageNo() ? "[" + i + "]" : String.valueOf(i))
+                .collect(Collectors.joining(" / "))
+                .toString();
+
+        System.out.println(pageMenu);
     }
 
     public void actionDelete(Rq rq) {

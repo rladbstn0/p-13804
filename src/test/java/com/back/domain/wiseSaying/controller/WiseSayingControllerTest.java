@@ -212,7 +212,8 @@ public class WiseSayingControllerTest {
                 .doesNotContain("4 / 작자미상 4 / 명언 4")
                 .doesNotContain("3 / 작자미상 3 / 명언 3")
                 .doesNotContain("2 / 작자미상 2 / 명언 2")
-                .doesNotContain("1 / 작자미상 1 / 명언 1");
+                .doesNotContain("1 / 작자미상 1 / 명언 1")
+                .contains("페이지 : [1] / 2");
     }
 
     @Test
@@ -232,14 +233,15 @@ public class WiseSayingControllerTest {
                 .contains("4 / 작자미상 4 / 명언 4")
                 .contains("3 / 작자미상 3 / 명언 3")
                 .contains("2 / 작자미상 2 / 명언 2")
-                .contains("1 / 작자미상 1 / 명언 1");
+                .contains("1 / 작자미상 1 / 명언 1")
+                .contains("페이지 : 1 / [2]");
     }
 
     @Test
     @DisplayName("목록?keyword=명언")
     void t13() {
         String rs = AppTestRunner.run(
-                makeSampleDataCommand() + "\n목록"
+                makeSampleDataCommand() + "\n목록?keyword=명언"
         );
 
         assertThat(rs)
@@ -252,7 +254,8 @@ public class WiseSayingControllerTest {
                 .doesNotContain("4 / 작자미상 4 / 명언 4")
                 .doesNotContain("3 / 작자미상 3 / 명언 3")
                 .doesNotContain("2 / 작자미상 2 / 명언 2")
-                .doesNotContain("1 / 작자미상 1 / 명언 1");
+                .doesNotContain("1 / 작자미상 1 / 명언 1")
+                .contains("페이지 : [1] / 2");
     }
 
     @Test
@@ -272,7 +275,29 @@ public class WiseSayingControllerTest {
                 .contains("4 / 작자미상 4 / 명언 4")
                 .contains("3 / 작자미상 3 / 명언 3")
                 .contains("2 / 작자미상 2 / 명언 2")
-                .contains("1 / 작자미상 1 / 명언 1");
+                .contains("1 / 작자미상 1 / 명언 1")
+                .contains("페이지 : 1 / [2]");
+    }
+
+    @Test
+    @DisplayName("목록?keyword=명언 1")
+    void t15() {
+        String rs = AppTestRunner.run(
+                makeSampleDataCommand() + "\n목록?keyword=명언 1"
+        );
+
+        assertThat(rs)
+                .contains("10 / 작자미상 10 / 명언 10")
+                .doesNotContain("9 / 작자미상 9 / 명언 9")
+                .doesNotContain("8 / 작자미상 8 / 명언 8")
+                .doesNotContain("7 / 작자미상 7 / 명언 7")
+                .doesNotContain("6 / 작자미상 6 / 명언 6")
+                .doesNotContain("5 / 작자미상 5 / 명언 5")
+                .doesNotContain("4 / 작자미상 4 / 명언 4")
+                .doesNotContain("3 / 작자미상 3 / 명언 3")
+                .doesNotContain("2 / 작자미상 2 / 명언 2")
+                .contains("1 / 작자미상 1 / 명언 1")
+                .contains("페이지 : [1]");
     }
 }
 
