@@ -22,4 +22,36 @@ public class FileUtilTest {
         Util.file.delete(filePath);
     }
 
+    @Test
+    @DisplayName("파일의 내용을 수정할 수 있고, 읽을 수 있다.")
+    public void t2() {
+        // given
+        String filePath = "temp/test.txt";
+
+        // when
+        Util.file.set(filePath, "내용");
+
+        // then
+        assertThat(
+                Util.file.get(filePath, "")
+        ).isEqualTo("내용");
+
+        Util.file.delete(filePath);
+    }
+
+    @Test
+    @DisplayName("파일을 삭제할 수 있다.")
+    public void t3() {
+        // given
+        String filePath = "temp/test.txt";
+
+        // when
+        Util.file.touch(filePath);
+        Util.file.delete(filePath);
+
+        // then
+        assertThat(
+                Util.file.notExists(filePath)
+        ).isTrue();
+    }
 }
