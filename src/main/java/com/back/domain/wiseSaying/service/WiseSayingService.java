@@ -2,6 +2,7 @@ package com.back.domain.wiseSaying.service;
 
 import com.back.domain.wiseSaying.entity.WiseSaying;
 import com.back.domain.wiseSaying.repository.WiseSayingRepository;
+import com.back.standard.dto.Pageable;
 
 import java.util.List;
 
@@ -20,20 +21,20 @@ public class WiseSayingService {
         return wiseSaying;
     }
 
-    public List<WiseSaying> findForList(String keywordType, String keyword, int pageSize, int pageNo) {
-        if (keyword.isBlank()) return wiseSayingRepository.findForList(pageSize, pageNo);
+    public List<WiseSaying> findForList(String keywordType, String keyword, Pageable pageable) {
+        if (keyword.isBlank()) return wiseSayingRepository.findForList(pageable);
 
         return switch (keywordType) {
-            case "content" -> wiseSayingRepository.findForListByContentContaining(keyword, pageSize, pageNo);
-            case "author" -> wiseSayingRepository.findForListByAuthorContaining(keyword, pageSize, pageNo);
-            default -> wiseSayingRepository.findForListByContentContainingOrAuthorContaining(keyword, keyword, pageSize, pageNo);
+            case "content" -> wiseSayingRepository.findForListByContentContaining(keyword, pageable);
+            case "author" -> wiseSayingRepository.findForListByAuthorContaining(keyword, pageable);
+            default -> wiseSayingRepository.findForListByContentContainingOrAuthorContaining(keyword, keyword, pageable);
         };
     }
 
     public boolean delete(int id) {
         WiseSaying wiseSaying = wiseSayingRepository.findById(id);
 
-        if(wiseSaying == null) return false;
+        if (wiseSaying == null) return false;
 
         wiseSayingRepository.delete(wiseSaying);
 
