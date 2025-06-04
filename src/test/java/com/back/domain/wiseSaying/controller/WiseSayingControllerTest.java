@@ -181,8 +181,8 @@ public class WiseSayingControllerTest {
                 """);
 
         assertThat(rs)
-                .contains("2 / 이순신 / 나의 죽음을 적들에게 알리지 말라.")
-                .contains("1 / 넬슨제독 / 진정한 해전의 왕은 이순신 뿐이다.");
+                .contains("1 / 이순신 / 나의 죽음을 적들에게 알리지 말라.")
+                .contains("2 / 넬슨제독 / 진정한 해전의 왕은 이순신 뿐이다.");
     }
 }
 

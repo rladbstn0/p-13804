@@ -26,7 +26,7 @@ public class WiseSayingService {
         return switch (keywordType) {
             case "content" -> wiseSayingRepository.findForListByContentContaining(keyword);
             case "author" -> wiseSayingRepository.findForListByAuthorContaining(keyword);
-            default -> throw new IllegalStateException("Unexpected value: " + keywordType);
+            default -> wiseSayingRepository.findForListByContentContainingOrAuthorContaining(keyword, keyword);
         };
     }
 
