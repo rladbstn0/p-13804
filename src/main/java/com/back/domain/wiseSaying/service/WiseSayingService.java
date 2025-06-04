@@ -2,9 +2,8 @@ package com.back.domain.wiseSaying.service;
 
 import com.back.domain.wiseSaying.entity.WiseSaying;
 import com.back.domain.wiseSaying.repository.WiseSayingRepository;
+import com.back.standard.dto.Page;
 import com.back.standard.dto.Pageable;
-
-import java.util.List;
 
 public class WiseSayingService {
     private final WiseSayingRepository wiseSayingRepository;
@@ -21,7 +20,7 @@ public class WiseSayingService {
         return wiseSaying;
     }
 
-    public List<WiseSaying> findForList(String keywordType, String keyword, Pageable pageable) {
+    public Page<WiseSaying> findForList(String keywordType, String keyword, Pageable pageable) {
         if (keyword.isBlank()) return wiseSayingRepository.findForList(pageable);
 
         return switch (keywordType) {

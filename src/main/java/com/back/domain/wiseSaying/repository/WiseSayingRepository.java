@@ -1,11 +1,11 @@
 package com.back.domain.wiseSaying.repository;
 
 import com.back.domain.wiseSaying.entity.WiseSaying;
+import com.back.standard.dto.Page;
 import com.back.standard.dto.Pageable;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 public class WiseSayingRepository {
@@ -21,13 +21,17 @@ public class WiseSayingRepository {
         return wiseSaying;
     }
 
-    public List<WiseSaying> findForList(Pageable pageable) {
-        return wiseSayings
+    public Page<WiseSaying> findForList(Pageable pageable) {
+        int totalCount = wiseSayings.size();
+
+        List<WiseSaying> content = wiseSayings
                 .reversed()
                 .stream()
-                .skip((pageable.getSkipCount()))
+                .skip(pageable.getSkipCount())
                 .limit(pageable.getPageSize())
-                .collect(Collectors.toList());
+                .toList();
+
+        return new Page<>(totalCount, pageable.getPageNo(), pageable.getPageSize(), content);
     }
 
     public int findIndexById(int id) {
@@ -50,35 +54,63 @@ public class WiseSayingRepository {
         wiseSayings.remove(wiseSaying);
     }
 
-    public List<WiseSaying> findForListByContentContaining(String keyword,Pageable pageable) {
-        return wiseSayings
+    public Page<WiseSaying> findForListByContentContaining(String keyword,Pageable pageable) {
+        List<WiseSaying> filtered = wiseSayings
                 .reversed()
                 .stream()
                 .filter(w -> w.getContent().contains(keyword))
+                .toList();
+
+        int totalCount = wiseSayings.size();
+
+        List<WiseSaying> content = filtered
+                .stream()
                 .skip(pageable.getSkipCount())
                 .limit(pageable.getPageSize())
-                .collect(Collectors.toList())
-                ;
+                .toList();
+
+        return new Page<>(totalCount, pageable.getPageNo(), pageable.getPageSize(), content);
+
     }
 
 
-    public List<WiseSaying> findForListByAuthorContaining(String keyword, Pageable pageable) {
-        return wiseSayings
+    public Page<WiseSaying> findForListByAuthorContaining(String keyword, Pageable pageable) {
+        List<WiseSaying> filtered = wiseSayings
                 .reversed()
                 .stream()
-                .filter(w -> w.getAuthor().contains(keyword))
-                .skip((pageable.getSkipCount()))
+                .filter(
+                        w -> w.getAuthor().contains(keyword)
+                )
+                .toList();
+
+        int totalCount = filtered.size();
+
+        List<WiseSaying> content = filtered
+                .stream()
+                .skip(pageable.getSkipCount())
                 .limit(pageable.getPageSize())
-                .collect(Collectors.toList());
+                .toList();
+
+        return new Page<>(totalCount, pageable.getPageNo(), pageable.getPageSize(), content);
     }
 
-    public List<WiseSaying> findForListByContentContainingOrAuthorContaining(String keyword1, String keyword2, Pageable pageable) {
-        return wiseSayings
+    public Page<WiseSaying> findForListByContentContainingOrAuthorContaining(String keyword1, String keyword2, Pageable pageable) {
+        List<WiseSaying> filtered = wiseSayings
                 .reversed()
                 .stream()
-                .filter(w -> w.getContent().contains(keyword1) || w.getAuthor().contains(keyword2))
-                .skip((pageable.getSkipCount()))
+                .filter(
+                        w -> w.getContent().contains(keyword1) || w.getAuthor().contains(keyword2)
+                )
+                .toList();
+
+        int totalCount = filtered.size();
+
+        List<WiseSaying> content = filtered
+                .stream()
+                .skip(pageable.getSkipCount())
                 .limit(pageable.getPageSize())
-                .collect(Collectors.toList());
+                .toList();
+
+        return new Page<>(totalCount, pageable.getPageNo(), pageable.getPageSize(), content);
     }
 }

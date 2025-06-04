@@ -4,6 +4,7 @@ import com.back.AppContext;
 import com.back.domain.wiseSaying.entity.WiseSaying;
 import com.back.domain.wiseSaying.service.WiseSayingService;
 import com.back.global.rq.Rq;
+import com.back.standard.dto.Page;
 import com.back.standard.dto.Pageable;
 
 import java.util.Scanner;
@@ -36,7 +37,8 @@ public class WiseSayingController {
         String keywordType = rq.getParam("keywordType", "all");
         String keyword =  rq.getParam("keyword", "");
 
-        for (WiseSaying wiseSaying : wiseSayingService.findForList(keywordType, keyword, pageable)) {
+        Page<WiseSaying> wiseSayingPage = wiseSayingService.findForList(keywordType, keyword, pageable);
+        for (WiseSaying wiseSaying : wiseSayingPage.getContent()) {
             System.out.printf("%d / %s / %s\n", wiseSaying.getId(), wiseSaying.getAuthor(), wiseSaying.getContent());
         }
     }
