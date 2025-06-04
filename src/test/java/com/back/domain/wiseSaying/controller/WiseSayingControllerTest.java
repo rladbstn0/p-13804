@@ -4,6 +4,9 @@ import com.back.AppTestRunner;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
 
@@ -183,6 +186,31 @@ public class WiseSayingControllerTest {
         assertThat(rs)
                 .contains("1 / 이순신 / 나의 죽음을 적들에게 알리지 말라.")
                 .contains("2 / 넬슨제독 / 진정한 해전의 왕은 이순신 뿐이다.");
+    }
+
+    @Test
+    @DisplayName("목록 : 한 페이지에 최대 5개만 노출")
+    void t11() {
+        String rs = AppTestRunner.run(
+                IntStream
+                        .rangeClosed(1, 10)
+                        .mapToObj(id -> "등록\n명언 %d\n작자미상 %d".formatted(id, id))
+                        .collect(Collectors.joining("\n")) + "\n" + """
+                        목록
+                        """
+        );
+
+        assertThat(rs)
+                .contains("10 / 작자미상 10 / 명언 10")
+                .contains("9 / 작자미상 9 / 명언 9")
+                .contains("8 / 작자미상 8 / 명언 8")
+                .contains("7 / 작자미상 7 / 명언 7")
+                .contains("6 / 작자미상 6 / 명언 6")
+                .doesNotContain("5 / 작자미상 5 / 명언 5")
+                .doesNotContain("4 / 작자미상 4 / 명언 4")
+                .doesNotContain("3 / 작자미상 3 / 명언 3")
+                .doesNotContain("2 / 작자미상 2 / 명언 2")
+                .doesNotContain("1 / 작자미상 1 / 명언 1");
     }
 }
 
