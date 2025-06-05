@@ -81,6 +81,10 @@ public class WiseSayingFileRepository {
         return createPage(filtered, pageable);
     }
 
+    public Page<WiseSaying> findForListByContentContainingOrAuthorContaining(String keyword1, String keyword2, Pageable pageable) {
+        return null;
+    }
+
     private Page<WiseSaying> createPage(List<WiseSaying> wiseSayings, Pageable pageable) {
         int totalCount = wiseSayings.size();
 
