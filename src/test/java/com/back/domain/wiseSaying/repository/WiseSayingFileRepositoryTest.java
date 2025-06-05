@@ -2,7 +2,9 @@ package com.back.domain.wiseSaying.repository;
 
 import com.back.AppContext;
 import com.back.domain.wiseSaying.entity.WiseSaying;
+import com.back.standard.util.Util;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -19,6 +21,11 @@ public class WiseSayingFileRepositoryTest {
     @BeforeAll
     static void beforeAll() {
         AppContext.renew();
+    }
+
+    @BeforeEach
+    void beforeEach() {
+        Util.file.rmdir("db/wiseSaying");
     }
 
     @Test
@@ -43,7 +50,6 @@ public class WiseSayingFileRepositoryTest {
         WiseSaying wiseSaying2 = new WiseSaying("나의 죽음을 적들에게 알리지 말라.", "이순신");
         wiseSayingFileRepository.save(wiseSaying2);
 
-        wiseSayingFileRepository.save(wiseSaying2);
 
         assertThat(wiseSaying2.getId()).isEqualTo(2);
     }
