@@ -7,6 +7,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import java.util.Optional;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
 
@@ -33,7 +35,7 @@ public class WiseSayingFileRepositoryTest {
         WiseSaying wiseSaying = new WiseSaying("꿈을 지녀라. 그러면 어려운 현실을 이길 수 있다.", "괴테");
         wiseSayingFileRepository.save(wiseSaying);
 
-        WiseSaying foundWiseSaying = wiseSayingFileRepository.findById(1);
+        WiseSaying foundWiseSaying = wiseSayingFileRepository.findById(1).get();
 
         assertThat(
                 foundWiseSaying
@@ -64,8 +66,8 @@ public class WiseSayingFileRepositoryTest {
 
         wiseSayingFileRepository.delete(wiseSaying2);
 
-        WiseSaying foundWiseSaying = wiseSayingFileRepository.findById(2);
+        Optional <WiseSaying> opfoundWiseSaying = wiseSayingFileRepository.findById(2);
 
-        assertThat(foundWiseSaying).isNull();
+        assertThat(opfoundWiseSaying.isEmpty());
     }
 }

@@ -6,6 +6,7 @@ import com.back.standard.dto.Pageable;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.IntStream;
 
 public class WiseSayingRepository {
@@ -42,12 +43,12 @@ public class WiseSayingRepository {
                 .orElse(-1);
     }
 
-    public WiseSaying findById(int id) {
+    public Optional<WiseSaying> findById(int id) {
         int index = findIndexById(id);
 
-        if (index == -1) return null;
+        if (index == -1) return Optional.empty();
 
-        return wiseSayings.get(index);
+        return Optional.of(wiseSayings.get(index));
     }
 
     public boolean delete(WiseSaying wiseSaying) {
