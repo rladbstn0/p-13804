@@ -1,6 +1,8 @@
 package com.back.domain.wiseSaying.repository;
 
 import com.back.domain.wiseSaying.entity.WiseSaying;
+import com.back.standard.dto.Page;
+import com.back.standard.dto.Pageable;
 import com.back.standard.util.Util;
 
 import java.util.Map;
@@ -61,5 +63,9 @@ public class WiseSayingFileRepository {
 
     public void clear() {
         Util.file.rmdir(getTableDirPath());
+    }
+
+    public Page<WiseSaying> findForList(Pageable pageable) {
+        return null;
     }
 }

@@ -2,6 +2,7 @@ package com.back.domain.wiseSaying.repository;
 
 import com.back.AppContext;
 import com.back.domain.wiseSaying.entity.WiseSaying;
+import com.back.standard.dto.Pageable;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -66,8 +67,22 @@ public class WiseSayingFileRepositoryTest {
 
         wiseSayingFileRepository.delete(wiseSaying2);
 
-        Optional <WiseSaying> opfoundWiseSaying = wiseSayingFileRepository.findById(2);
+        Optional<WiseSaying> opfoundWiseSaying = wiseSayingFileRepository.findById(2);
 
         assertThat(opfoundWiseSaying.isEmpty());
+    }
+
+    @Test
+    @DisplayName("명언 다건조회")
+    public void t4() {
+        WiseSaying wiseSaying1 = new WiseSaying("꿈을 지녀라. 그러면 어려운 현실을 이길 수 있다.", "괴테");
+        wiseSayingFileRepository.save(wiseSaying1);
+
+        WiseSaying wiseSaying2 = new WiseSaying("나의 삶의 가치는 나의 결정에 달려있다.", "아인슈타인");
+        wiseSayingFileRepository.save(wiseSaying2);
+
+        assertThat(
+                wiseSayingFileRepository.findForList(new Pageable(1, 5)).getContent()
+        ).containsExactly(wiseSaying2, wiseSaying1);
     }
 }

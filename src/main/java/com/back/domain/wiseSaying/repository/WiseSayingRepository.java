@@ -35,7 +35,7 @@ public class WiseSayingRepository {
         return new Page<>(totalCount, pageable.getPageNo(), pageable.getPageSize(), content);
     }
 
-    public int findIndexById(int id) {
+    private int findIndexById(int id) {
 
         return IntStream.range(0, wiseSayings.size())
                 .filter(index -> wiseSayings.get(index).getId() == id)
