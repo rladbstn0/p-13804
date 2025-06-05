@@ -9,21 +9,19 @@ import java.util.Optional;
 public interface WiseSayingRepository {
     WiseSaying save(WiseSaying wiseSaying);
 
-
     Optional<WiseSaying> findById(int id);
-
 
     boolean delete(WiseSaying wiseSaying);
 
-
     Page<WiseSaying> findForList(Pageable pageable);
-
 
     Page<WiseSaying> findForListByContentContaining(String keyword, Pageable pageable);
 
-
     Page<WiseSaying> findForListByAuthorContaining(String keyword, Pageable pageable);
 
-
     Page<WiseSaying> findForListByContentContainingOrAuthorContaining(String keyword1, String keyword2, Pageable pageable);
+
+    default String archive(){
+        return null;
+    }
 }
