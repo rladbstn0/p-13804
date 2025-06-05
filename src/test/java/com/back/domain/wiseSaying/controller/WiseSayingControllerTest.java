@@ -315,7 +315,7 @@ public class WiseSayingControllerTest {
                 현재를 사랑하라.
                 작자미상
                 등록
-                현재를 사랑하라.
+                과거에 집착 하지 마라.
                 작자미상
                 빌드
                 """
