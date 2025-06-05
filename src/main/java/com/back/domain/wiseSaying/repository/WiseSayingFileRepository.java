@@ -5,6 +5,8 @@ import com.back.standard.dto.Page;
 import com.back.standard.dto.Pageable;
 import com.back.standard.util.Util;
 
+import java.util.Comparator;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -66,6 +68,26 @@ public class WiseSayingFileRepository {
     }
 
     public Page<WiseSaying> findForList(Pageable pageable) {
-        return null;
+        List<WiseSaying> content = findAll();
+        int totalCount = content.size();
+
+        return new Page<>(
+                totalCount,
+                pageable.getPageNo(),
+                pageable.getPageSize(),
+                content
+        );
+    }
+
+    private List<WiseSaying> findAll() {
+        return Util.file.walkRegularFiles(
+                        getTableDirPath(),
+                        "\\d+\\.json"
+                )
+                .map(path -> Util.file.get(path.toString(), ""))
+                .map(Util.json::toMap)
+                .map(WiseSaying::new)
+                .sorted(Comparator.comparingInt(WiseSaying::getId).reversed()) // id 순 역순정렬
+                .toList();
     }
 }

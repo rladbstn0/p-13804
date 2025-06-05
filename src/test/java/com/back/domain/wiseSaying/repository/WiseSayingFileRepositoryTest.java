@@ -67,9 +67,9 @@ public class WiseSayingFileRepositoryTest {
 
         wiseSayingFileRepository.delete(wiseSaying2);
 
-        Optional<WiseSaying> opfoundWiseSaying = wiseSayingFileRepository.findById(2);
+        Optional<WiseSaying> opFoundWiseSaying = wiseSayingFileRepository.findById(2);
 
-        assertThat(opfoundWiseSaying.isEmpty());
+        assertThat(opFoundWiseSaying.isEmpty());
     }
 
     @Test
