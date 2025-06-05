@@ -9,11 +9,9 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import java.util.function.Predicate;
 import java.util.stream.Stream;
 
 public class WiseSayingFileRepository {
-
     public String getEntityFilePath(WiseSaying wiseSaying) {
         return getEntityFilePath(wiseSaying.getId());
     }
@@ -69,18 +67,29 @@ public class WiseSayingFileRepository {
     }
 
     public Page<WiseSaying> findForList(Pageable pageable) {
-        List<WiseSaying> content = findAll();
-        return createPage(content, pageable);
+        List<WiseSaying> filtered = findAll();
+        return createPage(filtered, pageable);
     }
 
     public Page<WiseSaying> findForListByContentContaining(String keyword, Pageable pageable) {
-        List<WiseSaying> content = findByContentContaining(keyword);
-        return createPage(content, pageable);
+        List<WiseSaying> filtered = findByContentContaining(keyword);
+        return createPage(filtered, pageable);
     }
 
-    // 공통 Page 생성 로직 추출
-    private Page<WiseSaying> createPage(List<WiseSaying> content, Pageable pageable) {
-        int totalCount = content.size();
+    public Page<WiseSaying> findForListByAuthorContaining(String keyword, Pageable pageable) {
+        List<WiseSaying> filtered = findByAuthorContaining(keyword);
+        return createPage(filtered, pageable);
+    }
+
+    private Page<WiseSaying> createPage(List<WiseSaying> wiseSayings, Pageable pageable) {
+        int totalCount = wiseSayings.size();
+
+        List<WiseSaying> content = wiseSayings
+                .stream()
+                .skip(pageable.getSkipCount())
+                .limit(pageable.getPageSize())
+                .toList();
+
         return new Page<>(
                 totalCount,
                 pageable.getPageNo(),
@@ -90,23 +99,26 @@ public class WiseSayingFileRepository {
     }
 
     private List<WiseSaying> findAll() {
-        return findWiseSayings(w -> true);
-    }
-
-    private List<WiseSaying> findByContentContaining(String keyword) {
-        return findWiseSayings(w -> w.getContent().contains(keyword));
-    }
-
-    // 공통 조회 로직 추출
-    private List<WiseSaying> findWiseSayings(Predicate<WiseSaying> filter) {
-        return getWiseSayingStream()
-                .filter(filter)
+        return loadAllWiseSayings()
                 .sorted(Comparator.comparingInt(WiseSaying::getId).reversed())
                 .toList();
     }
 
-    // 공통 스트림 생성 로직 추출
-    private Stream<WiseSaying> getWiseSayingStream() {
+    private List<WiseSaying> findByContentContaining(String keyword) {
+        return loadAllWiseSayings()
+                .filter(w -> w.getContent().contains(keyword))
+                .sorted(Comparator.comparingInt(WiseSaying::getId).reversed())
+                .toList();
+    }
+
+    private List<WiseSaying> findByAuthorContaining(String keyword) {
+        return loadAllWiseSayings()
+                .filter(w -> w.getAuthor().contains(keyword))
+                .sorted(Comparator.comparingInt(WiseSaying::getId).reversed())
+                .toList();
+    }
+
+    private Stream<WiseSaying> loadAllWiseSayings() {
         return Util.file.walkRegularFiles(
                         getTableDirPath(),
                         "\\d+\\.json"
@@ -114,9 +126,5 @@ public class WiseSayingFileRepository {
                 .map(path -> Util.file.get(path.toString(), ""))
                 .map(Util.json::toMap)
                 .map(WiseSaying::new);
-    }
-
-    public Page<WiseSaying> findForListByAuthorContaining(String keyword, Pageable pageable) {
-        return null;
     }
 }
