@@ -13,7 +13,7 @@ public class WiseSayingRepository {
     private int lastId = 0;
 
     public WiseSaying save(WiseSaying wiseSaying) {
-        if(wiseSaying.isNew()){
+        if (wiseSaying.isNew()) {
             wiseSaying.setId(++lastId);
             wiseSayings.add(wiseSaying);
         }
@@ -37,7 +37,7 @@ public class WiseSayingRepository {
     public int findIndexById(int id) {
 
         return IntStream.range(0, wiseSayings.size())
-                .filter(index -> wiseSayings.get(index).getId()==id)
+                .filter(index -> wiseSayings.get(index).getId() == id)
                 .findFirst()
                 .orElse(-1);
     }
@@ -45,7 +45,7 @@ public class WiseSayingRepository {
     public WiseSaying findById(int id) {
         int index = findIndexById(id);
 
-        if(index == -1) return null;
+        if (index == -1) return null;
 
         return wiseSayings.get(index);
     }
@@ -54,7 +54,7 @@ public class WiseSayingRepository {
         wiseSayings.remove(wiseSaying);
     }
 
-    public Page<WiseSaying> findForListByContentContaining(String keyword,Pageable pageable) {
+    public Page<WiseSaying> findForListByContentContaining(String keyword, Pageable pageable) {
         List<WiseSaying> filtered = wiseSayings
                 .reversed()
                 .stream()
@@ -78,9 +78,7 @@ public class WiseSayingRepository {
         List<WiseSaying> filtered = wiseSayings
                 .reversed()
                 .stream()
-                .filter(
-                        w -> w.getAuthor().contains(keyword)
-                )
+                .filter(w -> w.getAuthor().contains(keyword))
                 .toList();
 
         int totalCount = filtered.size();
@@ -98,9 +96,7 @@ public class WiseSayingRepository {
         List<WiseSaying> filtered = wiseSayings
                 .reversed()
                 .stream()
-                .filter(
-                        w -> w.getContent().contains(keyword1) || w.getAuthor().contains(keyword2)
-                )
+                .filter(w -> w.getContent().contains(keyword1) || w.getAuthor().contains(keyword2))
                 .toList();
 
         int totalCount = filtered.size();
