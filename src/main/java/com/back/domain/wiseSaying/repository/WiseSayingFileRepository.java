@@ -106,7 +106,7 @@ public class WiseSayingFileRepository implements WiseSayingRepository{
         );
     }
 
-    private List<WiseSaying> findAll() {
+    public List<WiseSaying> findAll() {
         return loadAllWiseSayings()
                 .sorted(Comparator.comparingInt(WiseSaying::getId).reversed())
                 .toList();

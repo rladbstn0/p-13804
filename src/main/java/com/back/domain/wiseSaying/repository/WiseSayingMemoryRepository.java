@@ -115,4 +115,8 @@ public class WiseSayingMemoryRepository implements WiseSayingRepository {
         return new Page<>(totalCount, pageable.getPageNo(), pageable.getPageSize(), content);
     }
 
+    @Override
+    public List<WiseSaying> findAll(){
+        return wiseSayings;
+    }
 }
