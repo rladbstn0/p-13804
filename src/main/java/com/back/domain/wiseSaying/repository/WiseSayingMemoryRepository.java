@@ -25,8 +25,7 @@ public class WiseSayingMemoryRepository implements WiseSayingRepository {
     public Page<WiseSaying> findForList(Pageable pageable) {
         int totalCount = wiseSayings.size();
 
-        List<WiseSaying> content = wiseSayings
-                .reversed()
+        List<WiseSaying> content = findAll()
                 .stream()
                 .skip(pageable.getSkipCount())
                 .limit(pageable.getPageSize())
@@ -56,8 +55,7 @@ public class WiseSayingMemoryRepository implements WiseSayingRepository {
     }
 
     public Page<WiseSaying> findForListByContentContaining(String keyword, Pageable pageable) {
-        List<WiseSaying> filtered = wiseSayings
-                .reversed()
+        List<WiseSaying> filtered = findAll()
                 .stream()
                 .filter(
                         w -> w.getContent().contains(keyword)
@@ -76,8 +74,7 @@ public class WiseSayingMemoryRepository implements WiseSayingRepository {
     }
 
     public Page<WiseSaying> findForListByAuthorContaining(String keyword, Pageable pageable) {
-        List<WiseSaying> filtered = wiseSayings
-                .reversed()
+        List<WiseSaying> filtered = findAll()
                 .stream()
                 .filter(
                         w -> w.getAuthor().contains(keyword)
@@ -96,8 +93,7 @@ public class WiseSayingMemoryRepository implements WiseSayingRepository {
     }
 
     public Page<WiseSaying> findForListByContentContainingOrAuthorContaining(String keyword1, String keyword2, Pageable pageable) {
-        List<WiseSaying> filtered = wiseSayings
-                .reversed()
+        List<WiseSaying> filtered = findAll()
                 .stream()
                 .filter(
                         w -> w.getContent().contains(keyword1) || w.getAuthor().contains(keyword2)
@@ -115,8 +111,9 @@ public class WiseSayingMemoryRepository implements WiseSayingRepository {
         return new Page<>(totalCount, pageable.getPageNo(), pageable.getPageSize(), content);
     }
 
+
     @Override
     public List<WiseSaying> findAll(){
-        return wiseSayings;
+        return wiseSayings.reversed();
     }
 }
