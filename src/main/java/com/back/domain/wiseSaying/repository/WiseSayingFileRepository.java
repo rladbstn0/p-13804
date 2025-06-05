@@ -11,7 +11,7 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Stream;
 
-public class WiseSayingFileRepository {
+public class WiseSayingFileRepository implements WiseSayingRepository{
     public String getEntityFilePath(WiseSaying wiseSaying) {
         return getEntityFilePath(wiseSaying.getId());
     }
@@ -28,7 +28,7 @@ public class WiseSayingFileRepository {
         return getTableDirPath() + "/lastId.txt";
     }
 
-    public void save(WiseSaying wiseSaying) {
+    public WiseSaying save(WiseSaying wiseSaying) {
         if (wiseSaying.isNew()) {
             int newId = getLastId() + 1;
             wiseSaying.setId(newId);
@@ -38,6 +38,8 @@ public class WiseSayingFileRepository {
         Map<String, Object> wiseSayingMap = wiseSaying.toMap();
         String wiseSayingJsonStr = Util.json.toString(wiseSayingMap);
         Util.file.set(getEntityFilePath(wiseSaying), wiseSayingJsonStr);
+
+        return wiseSaying;
     }
 
     private void setLastId(int newId) {
