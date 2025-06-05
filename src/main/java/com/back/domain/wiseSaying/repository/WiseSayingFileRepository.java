@@ -37,8 +37,6 @@ public class WiseSayingFileRepository {
     }
 
     public boolean delete(WiseSaying wiseSaying) {
-        String filePath = "db/wiseSaying/%d.json".formatted(wiseSaying.getId());
-
-        return Util.file.delete(filePath);
+        return false;
     }
 }

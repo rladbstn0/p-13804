@@ -50,8 +50,8 @@ public class WiseSayingRepository {
         return wiseSayings.get(index);
     }
 
-    public void delete(WiseSaying wiseSaying) {
-        wiseSayings.remove(wiseSaying);
+    public boolean delete(WiseSaying wiseSaying) {
+        return wiseSayings.remove(wiseSaying);
     }
 
     public Page<WiseSaying> findForListByContentContaining(String keyword, Pageable pageable) {
