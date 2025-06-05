@@ -23,7 +23,7 @@ public class AppContext {
         systemController = new SystemController();
         wiseSayingFileRepository = new WiseSayingFileRepository();
         wiseSayingMemoryRepository = new WiseSayingMemoryRepository();
-        wiseSayingRepository = wiseSayingMemoryRepository;
+        wiseSayingRepository = wiseSayingFileRepository;
         wiseSayingService = new WiseSayingService();
         wiseSayingController = new WiseSayingController();
     }
