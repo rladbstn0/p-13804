@@ -102,4 +102,24 @@ public class WiseSayingFileRepositoryTest {
                 wiseSayingFileRepository.findForListByContentContaining("꿈", new Pageable(1, 5)).getContent()
         ).containsExactly(wiseSaying3, wiseSaying1);
     }
+
+    @Test
+    @DisplayName("명언 다건조회, findForListByAuthorContaining")
+    public void t6() {
+        WiseSaying wiseSaying1 = new WiseSaying("꿈을 지녀라. 그러면 어려운 현실을 이길 수 있다.", "괴테");
+        wiseSayingFileRepository.save(wiseSaying1);
+
+        WiseSaying wiseSaying2 = new WiseSaying("나의 삶의 가치는 나의 결정에 달려있다.", "아인슈타인");
+        wiseSayingFileRepository.save(wiseSaying2);
+
+        WiseSaying wiseSaying3 = new WiseSaying("생생한 꿈은 현실이 된다.", "작자미상");
+        wiseSayingFileRepository.save(wiseSaying3);
+
+        WiseSaying wiseSaying4 = new WiseSaying("신은 주사위놀이를 하지 않는다.", "아인슈타인");
+        wiseSayingFileRepository.save(wiseSaying4);
+
+        assertThat(
+                wiseSayingFileRepository.findForListByAuthorContaining("아인슈타인", new Pageable(1, 5)).getContent()
+        ).containsExactly(wiseSaying4, wiseSaying2);
+    }
 }

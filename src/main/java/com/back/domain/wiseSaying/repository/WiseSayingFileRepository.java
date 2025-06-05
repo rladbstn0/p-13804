@@ -115,4 +115,8 @@ public class WiseSayingFileRepository {
                 .map(Util.json::toMap)
                 .map(WiseSaying::new);
     }
+
+    public Page<WiseSaying> findForListByAuthorContaining(String keyword, Pageable pageable) {
+        return null;
+    }
 }
