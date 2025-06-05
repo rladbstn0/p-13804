@@ -79,6 +79,18 @@ public class WiseSayingFileRepository {
         );
     }
 
+    public Page<WiseSaying> findForListByContentContaining(String keyword, Pageable pageable) {
+        List<WiseSaying> content = findByContentContaining(keyword);
+        int totalCount = content.size();
+
+        return new Page<>(
+                totalCount,
+                pageable.getPageNo(),
+                pageable.getPageSize(),
+                content
+        );
+    }
+
     private List<WiseSaying> findAll() {
         return Util.file.walkRegularFiles(
                         getTableDirPath(),
@@ -87,6 +99,19 @@ public class WiseSayingFileRepository {
                 .map(path -> Util.file.get(path.toString(), ""))
                 .map(Util.json::toMap)
                 .map(WiseSaying::new)
+                .sorted(Comparator.comparingInt(WiseSaying::getId).reversed()) // id 순 역순정렬
+                .toList();
+    }
+
+    private List<WiseSaying> findByContentContaining(String keyword) {
+        return Util.file.walkRegularFiles(
+                        getTableDirPath(),
+                        "\\d+\\.json"
+                )
+                .map(path -> Util.file.get(path.toString(), ""))
+                .map(Util.json::toMap)
+                .map(WiseSaying::new)
+                .filter(w -> w.getContent().contains(keyword))
                 .sorted(Comparator.comparingInt(WiseSaying::getId).reversed()) // id 순 역순정렬
                 .toList();
     }
