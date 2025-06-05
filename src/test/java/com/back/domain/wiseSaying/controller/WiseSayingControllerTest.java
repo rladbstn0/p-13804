@@ -1,6 +1,8 @@
 package com.back.domain.wiseSaying.controller;
 
 import com.back.AppTestRunner;
+import com.back.global.app.AppConfig;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -11,6 +13,11 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 
 public class WiseSayingControllerTest {
+    @BeforeAll
+    static void beforeAll(){
+        AppConfig.setTestMode();
+    }
+
     @Test
     @DisplayName("등록")
     void t1() {

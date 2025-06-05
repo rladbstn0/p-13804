@@ -2,6 +2,7 @@ package com.back.domain.wiseSaying.repository;
 
 import com.back.AppContext;
 import com.back.domain.wiseSaying.entity.WiseSaying;
+import com.back.global.app.AppConfig;
 import com.back.standard.dto.Pageable;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -22,6 +23,8 @@ public class WiseSayingFileRepositoryTest {
 
     @BeforeAll
     static void beforeAll() {
+        AppConfig.setTestMode();
+
         AppContext.renew();
     }
 

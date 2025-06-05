@@ -43,4 +43,6 @@ bin/
 
 ### Custom ###
 temp
-db
+testDb
+devDb
+prodDb

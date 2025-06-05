@@ -10,7 +10,7 @@ public class  AppTestRunner {
         Scanner scanner = TestUtil.genScanner(input + "\n종료");
 
         ByteArrayOutputStream output = TestUtil.setOutToByteArray();
-        AppContext.renew(scanner);
+        AppContext.renew(scanner, false);
         new App().run();
 
         return output.toString();
