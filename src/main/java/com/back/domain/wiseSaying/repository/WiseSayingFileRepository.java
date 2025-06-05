@@ -82,7 +82,8 @@ public class WiseSayingFileRepository {
     }
 
     public Page<WiseSaying> findForListByContentContainingOrAuthorContaining(String keyword1, String keyword2, Pageable pageable) {
-        return null;
+        List<WiseSaying> filtered = findByContentContainingOrAuthorContaining(keyword1, keyword2);
+        return createPage(filtered, pageable);
     }
 
     private Page<WiseSaying> createPage(List<WiseSaying> wiseSayings, Pageable pageable) {
@@ -118,6 +119,13 @@ public class WiseSayingFileRepository {
     private List<WiseSaying> findByAuthorContaining(String keyword) {
         return loadAllWiseSayings()
                 .filter(w -> w.getAuthor().contains(keyword))
+                .sorted(Comparator.comparingInt(WiseSaying::getId).reversed())
+                .toList();
+    }
+
+    private List<WiseSaying> findByContentContainingOrAuthorContaining(String keyword1, String keyword2) {
+        return loadAllWiseSayings()
+                .filter(w -> w.getContent().contains(keyword1) || w.getAuthor().contains(keyword2))
                 .sorted(Comparator.comparingInt(WiseSaying::getId).reversed())
                 .toList();
     }

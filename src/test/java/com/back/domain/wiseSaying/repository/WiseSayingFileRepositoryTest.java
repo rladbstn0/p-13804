@@ -139,10 +139,10 @@ public class WiseSayingFileRepositoryTest {
         wiseSayingFileRepository.save(wiseSaying4);
 
         WiseSaying wiseSaying5 = new WiseSaying("나의 상상은 현실이 된다.", "아무개");
-        wiseSayingFileRepository.save(wiseSaying4);
+        wiseSayingFileRepository.save(wiseSaying5);
 
         assertThat(
-                wiseSayingFileRepository.findForListByContentContainingOrAuthorContaining("상","상", new Pageable(1, 5)).getContent()
+                wiseSayingFileRepository.findForListByContentContainingOrAuthorContaining("상", "상", new Pageable(1, 5)).getContent()
         ).containsExactly(wiseSaying5, wiseSaying3);
     }
 }
